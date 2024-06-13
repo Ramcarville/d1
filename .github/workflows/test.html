@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test HTML de ram</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        let colors = {
+            red: [255, 0, 0],
+            green: [0, 255, 0],
+            bleu: [0, 0, 255],
+            black: [0, 0, 0],
+            white: [255, 255, 255]
+        };
+        let currentColor = colors.black;
+	let maintien = 0;
+
+        function setup() {
+            createCanvas(1000, 1000);
+            background(120); // Set background to gray
+            createButtons();
+        }
+
+        function draw() {
+	    
+            if (mouseIsPressed) {
+                fill(currentColor);
+                noStroke();
+                // Draw ellipse at mouse position
+                ellipse(mouseX, mouseY, 20, 20);
+                // Calculate the symmetric positions around the center (500, 500)
+                let symmetricX1 = 1000 - mouseX;
+                let symmetricY1 = mouseY;
+                let symmetricX2 = mouseX;
+                let symmetricY2 = 1000 - mouseY;
+                let symmetricX3 = 1000 - mouseX;
+                let symmetricY3 = 1000 - mouseY;
+                // Draw the symmetric ellipses
+                ellipse(symmetricX1, symmetricY1, 20, 20);
+                ellipse(symmetricX2, symmetricY2, 20, 20);
+                ellipse(symmetricX3, symmetricY3, 20, 20);
+            }
+	    
+
+        function createButtons() {
+            // Create buttons for color change
+            let buttonContainer = createDiv('').style('padding', '10px');
+            for (let color in colors) {
+                let btn = createButton(color);
+                btn.style('margin', '5px');
+                btn.mousePressed(() => {
+                    currentColor = colors[color];
+                });
+                buttonContainer.child(btn);
+            }
+
+            // Create a button to clear the canvas
+            let clearBtn = createButton('Clear');
+            clearBtn.style('margin', '5px');
+            clearBtn.mousePressed(clearCanvas);
+            buttonContainer.child(clearBtn);
+
+	    let maintienBtn = createButton('Maintien');
+	    maintienBtn.style('margin', '5px');
+            maintienBtn.mousePressed(clearCanvas);
+            buttonContainer.child(maintienBtn);
+        }
+
+
+	
+
+    </script>
+</body>
+</html>
